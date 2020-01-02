@@ -2,13 +2,19 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/bradfitz/gomemcache/memcache"
 )
 
-func main() {
+const (
+	/*DefaultTimeout set default timeout*/
+	DefaultTimeout = 10 * time.Second
+)
 
+func main() {
 	mc := memcache.New("nuc:11211")
+	mc.Timeout = DefaultTimeout
 
 	mc.Set(&memcache.Item{Key: "key1", Value: []byte("hello")})
 	mc.Set(&memcache.Item{Key: "key2", Value: []byte("world")})
